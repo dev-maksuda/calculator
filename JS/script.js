@@ -17,7 +17,9 @@ buttons.forEach(button => {
         } 
         else if (value === '=') {
             if (display.value !== '' && display.value !== 'Error') {
-                let result = eval(display.value);
+                let equation = display.value.replace(/%/g, '/100');
+                let result = eval(equation);
+                
                 if (result === undefined || isNaN(result)) {
                     display.value = 'Error';
                 } else {
@@ -29,7 +31,9 @@ buttons.forEach(button => {
             if (display.value === '0') {
                 if (value === '.') {
                     display.value = '0.';
-                } else if (value !== '00') {
+                } else if (value === '/' || value === '*' || value === '-' || value === '+' || value === '%') {
+                    display.value = '0' + value;
+                } else if (value !== '00' && value !== '0') {
                     display.value = value;
                 }
             } else {
